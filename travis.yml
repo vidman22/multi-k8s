@@ -3,23 +3,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t vidman22/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jviddie/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run vidman22/react-test npm test -- --coverage
+  - docker run jviddie/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t vidman22/multi-client ./client
-  - docker build -t vidman22/multi-nginx ./nginx
-  - docker build -t vidman22/multi-server ./server
-  - docker build -t vidman22/multi-worker ./worker
+  - docker build -t jviddie/multi-client ./client
+  - docker build -t jviddie/multi-nginx ./nginx
+  - docker build -t jviddie/multi-server ./server
+  - docker build -t jviddie/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push vidman22/multi-client
-  - docker push vidman22/multi-nginx
-  - docker push vidman22/multi-server
-  - docker push vidman22/multi-worker
+  - docker push jviddie/multi-client
+  - docker push jviddie/multi-nginx
+  - docker push jviddie/multi-server
+  - docker push jviddie/multi-worker
 
 deploy:
   provider: elasticbeanstalk
